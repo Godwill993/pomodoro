@@ -6,6 +6,54 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello from Shina</h1>
+    <h1>Welcome to the Pomodoro study Timer</h1>
+    
+    <script>
+        // Simple Pomodoro Timer Logic
+        let timer;
+        let isRunning = false;
+        let timeLeft = 25 * 60; // 25 minutes in seconds
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timer = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert("Time's up!");
+                    resetTimer();
+                } else {
+                    timeLeft--;
+                    document.getElementById('timer').innerText = formatTime(timeLeft);
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            isRunning = false;
+            timeLeft = 25 * 60;
+            document.getElementById('timer').innerText = formatTime(timeLeft);
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('timer').innerText = formatTime(timeLeft);
+            document.getElementById('startButton').addEventListener('click', startTimer);
+            document.getElementById('resetButton').addEventListener('click', resetTimer);
+        });
+    </script>
+
+    <div >
+        <h2 id="timer">00:00</h2>
+        <button id="startButton">Start</button>
+        <button id="resetButton">Reset</button>
+    </div>
+  
 </body>
 </html>
