@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        h3 {
+            color: #333;
+        }
+        ol {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        li {
+            margin: 10px 0;
+        }
+        button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .li {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            width: 300px;
+            justify-content: space-between;
+        }
+        </style>
+</head>
+<body>
+    <h3>shopping cart</h3>
+        <P> CHOOSE WHAT YOU WANT TO BUY</P>
+        <section>
+    <ol>
+      
+
+       <div class="li"> <li>GRAPES 🍒</li> <input id="GRAPES" type="checkbox"> <P id="GRPRICE">300</P> <p>XAF</p> </div> 
+       
+       <div class="li"> <li>WATER MELON🍉</li> <input id="WATER" type="checkbox"><P id="GRAPRICE">300</P> <p>XAF</p></div> 
+       <div class="li"> <li>MANGO🥭</li> <input id="MANGO" type="checkbox"><P id="MANPRICE">300</P> <p>XAF</p></div> 
+        <div class="li"><li>banana🍌</li> <input id="banana" type="checkbox"><P id="BANPRICE">300</P> <p>XAF</p></div> 
+       <div class="li"> <li>APPLE🍎</li> <input id="APPLE" type="checkbox"><P id="APPPRICE">300</P> <p>XAF</p></div> 
+        <div class="li"><li>PEAR🍈</li> <input  id="PEAR" type="checkbox"><P id="PEAPRICE">300</P> <p>XAF</p></div> 
+        <div class="li"><li>PLUM🍆</li> <input id="PLUM" type="checkbox"><P id="PLUPRICE">300</P></div> 
+        
+       <div class="li"> <li>AVOCADO 🥑</li> <input id="AVOCADO" type="checkbox"><P id="GAVOPRICE">300</P> <p>XAF</p></div> 
+        <div class="li"><li>ORANGE🍊</li> <input id="ORANGE" type="checkbox"><P id="ORPRICE">300</P> <p>XAF</p></div> 
+        </div>
+    </ol>
+    </section>
+    
+    <div>
+        <h4>YOUR CART</h4>
+        <p>Items will be added here when you click "add".</p>
+        <ol id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+
+        </ol>
+        <button>MY BILL</button>
+        <p id="totall"></p>
+    </div>
+   
+
+    
+    <script>
+        const cartItems = document.getElementById('cart-items');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const prices = {
+            GRAPES: 300,
+            WATER: 300,
+            MANGO: 300,
+            banana: 300,
+            APPLE: 300,
+            PEAR: 300,
+            PLUM: 300,
+            AVOCADO: 300,
+            ORANGE: 300
+        };
+        const addToCart = (item, price) => {
+            const li = document.createElement('li');
+            li.textContent = `${item}     👉 XAF${price}`;
+            cartItems.appendChild(li);
+        };
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const item = checkbox.parentElement.querySelector('li').textContent;
+                const price = prices[checkbox.id];
+                if (checkbox.checked) {
+                    addToCart(item, price);
+                } else {
+                    const items = cartItems.querySelectorAll('li');
+                    items.forEach(cartItem => {
+                        if (cartItem.textContent.startsWith(item)) {
+                            cartItems.removeChild(cartItem);
+                        }
+                    });
+                }
+            });
+        });
+        document.querySelector('button').addEventListener('click', () => {
+            const items = cartItems.querySelectorAll('li');
+            if (items.length === 0) {
+                alert('Your cart is empty!');
+            } else {
+                let total = 0;
+                items.forEach(item => {
+                    const price = parseInt(item.textContent.split('👉 XAF')[1]);
+                    total += price;
+                });
+                document.getElementById('totall').textContent = `Total: XAF${total}`;
+            }
+        });
+      
+        
+       
+    
+        
+       
+        
+
+
+
+
+
+       
+        
+    </script>
+
+
+    
+</body>
+</html>

@@ -4,15 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body{
+            background-color: aliceblue;
+            display: flex;
+             align-items: center;
+            justify-content: center;
+        }
+        button{
+            background-color: rgb(79, 44, 38);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover{
+            background-color: rgb(56, 177, 229);
+            color: rgb(79, 44, 38);
+            border: 2px solid rgb(79, 44, 38);
+        }
+        button:active{
+            background-color: rgb(56, 177, 229);
+            color: rgb(79, 44, 38);
+            border: 2px solid rgb(79, 44, 38);
+        }
+        .lo{
+            display: flex;
+             align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: center;
+            margin: 20px;
+            border: 2px solid rgb(79, 44, 38);
+
+           
+            background-color: rgba(56, 177, 229, 0.936);
+            color: rgb(79, 44, 38);
+            width: 50%;
+            height: 80vh;
+        }
+        .but{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        h1{
+            color: rgb(79, 44, 38);
+            font-size: 30px;
+        }
+        h2{
+            color: rgb(79, 44, 38);
+            font-size: 50px;
+            margin: 20px 0;
+        }
+        input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 2px solid rgb(79, 44, 38);
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: rgb(56, 177, 229);
+        }
+        input[type="number"]::placeholder {
+            color: rgb(79, 44, 38);
+        }
+        .timmer{
+            height: 160px;
+            width: 160px;
+            border-radius: 80px;
+            border: 2px solid rgb(79, 44, 38) ;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           margin-block: 15px;
+        }
+        @media screen and (max-width: 600px) {
+            .lo {
+                width: 90%;
+                height: auto;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 36px;
+            }
+            input[type="number"] {
+                width: 80%;
+            }
+            
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Pomodoro study Timer</h1>
+   
+    <div class="lo">
+         <h1>Welcome to the Pomodoro study Timer</h1>
+        
+        <input type="number" id="duration" >
+       <button onclick="valueField()">set</button>
+    
+      <div class="timmer">
+        <h2 id="timer">00:00</h2>
+      </div>
+        
+        <div class="but">
+        <button id="startButton">Start</button>
+        <button id="resetButton">Reset</button>
+        </div>
+    </div>
     
     <script>
-        // Simple Pomodoro Timer Logic
+        function valueField () { 
+            let setter  = document.getElementById("duration");
+            let setterVal = setter.value 
+            const finalVal = Number(setterVal);
+            // const set = Number(setter);
+            // console.log(typeof setterVal);
+            console.log (parseInt (setterVal));
+            console.log(typeof finalVal);
+            return finalVal;
+            
+
+        }
+        
+        // console.log(setter, "set start")
+        
         let timer;
         let isRunning = false;
-        let timeLeft = 25 * 60; // 25 minutes in seconds
+        let timeLeft = valueField() * 60; 
+        
 
         function startTimer() {
             if (isRunning) return;
@@ -20,10 +153,10 @@
             timer = setInterval(() => {
                 if (timeLeft <= 0) {
                     clearInterval(timer);
-                    alert("Time's up!");
+                    alert("Time's up study the next course");
                     resetTimer();
                 } else {
-                    timeLeft--;
+                 timeLeft--;
                     document.getElementById('timer').innerText = formatTime(timeLeft);
                 }
             }, 1000);
@@ -32,7 +165,7 @@
         function resetTimer() {
             clearInterval(timer);
             isRunning = false;
-            timeLeft = 25 * 60;
+            timeLeft = valueField() * 60;
             document.getElementById('timer').innerText = formatTime(timeLeft);
         }
 
@@ -47,13 +180,9 @@
             document.getElementById('startButton').addEventListener('click', startTimer);
             document.getElementById('resetButton').addEventListener('click', resetTimer);
         });
+        
     </script>
 
-    <div >
-        <h2 id="timer">00:00</h2>
-        <button id="startButton">Start</button>
-        <button id="resetButton">Reset</button>
-    </div>
   
 </body>
 </html>
