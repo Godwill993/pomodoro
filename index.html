@@ -112,9 +112,10 @@
    
     <div class="lo">
          <h1>Welcome to the Pomodoro study Timer</h1>
+         <p>Input your desired study time and click on reset</p>
         
         <input type="number" id="duration" >
-       <button onclick="valueField()">set</button>
+       <!-- <button onclick="valueField()">set</button> -->
     
       <div class="timmer">
         <h2 id="timer">00:00</h2>
@@ -141,7 +142,7 @@
         }
         
         // console.log(setter, "set start")
-        
+        let audio = new Audio('mixkit-truck-reversing-beeps-loop-1077.wav');
         let timer;
         let isRunning = false;
         let timeLeft = valueField() * 60; 
@@ -153,7 +154,8 @@
             timer = setInterval(() => {
                 if (timeLeft <= 0) {
                     clearInterval(timer);
-                    alert("Time's up study the next course");
+        
+                    audio.play();
                     resetTimer();
                 } else {
                  timeLeft--;
